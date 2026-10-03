@@ -34,3 +34,10 @@ dist/
 # Generated OpenStreetMap data
 src/data/real_city_raw.json
 src/data/real_city.json
+
+__pycache__/
+*.pyc
+.pytest_cache/
+src/data/osm_parts/
+src/data/real_city_raw.json
+src/data/real_city.json
