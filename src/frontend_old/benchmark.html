@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Benchmark chart — Smart Traffic</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 24px; }
+  canvas { border: 1px solid #999; }
+  .note { color: #555; font-size: 14px; max-width: 640px; }
+</style>
+</head>
+<body>
+<h2>Benchmark: heap vs array vs Bellman-Ford</h2>
+<p class="note" id="status">Loading live timings from /benchmark ...</p>
+<canvas id="chart" width="640" height="360"></canvas>
+<p class="note">x = junctions (100, 500, 1000, 2000). y = seconds.
+Green = Dijkstra heap O((V+E) log V).
+Red = Dijkstra array O(V^2).
+Orange = Bellman-Ford O(V*E, early exit on easy graphs).</p>
+
+<script>
+// Plain canvas chart, no external libraries (works offline).
+// Fallback numbers below are REAL measurements from 2026-10-02,
+// Windows, Python 3.13.5, fixed seed 42 (see docs/reliability_scalability.md).
+// When served by the backend, live values from /benchmark replace them.
+var fallback = [
+  { n: 100,  heap_sec: 0.0005, array_sec: 0.0006, bellman_sec: 0.0007 },
+  { n: 500,  heap_sec: 0.0008, array_sec: 0.0113, bellman_sec: 0.0019 },
+  { n: 1000, heap_sec: 0.0023, array_sec: 0.0581, bellman_sec: 0.0086 },
+  { n: 2000, heap_sec: 0.0035, array_sec: 0.1829, bellman_sec: 0.0075 }
+];
+
+function draw(rows, live) {
+  var c = document.getElementById("chart");
+  var g = c.getContext("2d");
+  g.clearRect(0, 0, c.width, c.height);
+  var maxV = 0;
+  rows.forEach(function (r) {
+    maxV = Math.max(maxV, r.heap_sec, r.array_sec, r.bellman_sec);
+  });
+  maxV = maxV * 1.15; // headroom above tallest line
+  var left = 60, right = 20, top = 20, bottom = 40;
+  var W = c.width - left - right, H = c.height - top - bottom;
+  // Axes.
+  g.strokeStyle = "#333";
+  g.beginPath();
+  g.moveTo(left, top); g.lineTo(left, top + H); g.lineTo(left + W, top + H);
+  g.stroke();
+  g.fillStyle = "#333";
+  g.fillText(maxV.toFixed(3) + "s", 5, top + 10);
+  g.fillText("0s", 5, top + H);
+  // One line per algorithm.
+  var series = [
+    { key: "heap_sec", color: "green" },
+    { key: "array_sec", color: "red" },
+    { key: "bellman_sec", color: "orange" }
+  ];
+  var xs = rows.map(function (_, i) {
+    return left + (W * i) / (rows.length - 1);
+  });
+  series.forEach(function (s) {
+    g.strokeStyle = s.color;
+    g.lineWidth = 2;
+    g.beginPath();
+    rows.forEach(function (r, i) {
+      var y = top + H - (H * r[s.key]) / maxV;
+      if (i === 0) g.moveTo(xs[i], y); else g.lineTo(xs[i], y);
+    });
+    g.stroke();
+  });
+  // x labels.
+  g.fillStyle = "#333";
+  rows.forEach(function (r, i) {
+    g.fillText("n=" + r.n, xs[i] - 15, top + H + 20);
+  });
+  document.getElementById("status").textContent = live
+    ? "Live timings from the server."
+    : "Server not reached; showing measured fallback values from docs/reliability_scalability.md.";
+}
+
+// Try live data first; fall back to embedded real measurements.
+Promise.all([100, 500, 1000, 2000].map(function (n) {
+  return fetch("/benchmark?n=" + n).then(function (r) { return r.json(); });
+})).then(function (rows) {
+  draw(rows, true);
+}).catch(function () {
+  draw(fallback, false);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+/* Light calm theme. One accent color (blue). Big readable text. */
+:root { --accent: #2563eb; --bg: #f6f8fb; --card: #ffffff; --ink: #1f2937; --muted: #6b7280; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; margin: 0; background: var(--bg); color: var(--ink); }
+.hidden { display: none !important; }
+
+.topbar { display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; padding: 12px 20px; background: var(--card);
+  border-bottom: 1px solid #e5e7eb; flex-wrap: wrap; }
+.topbar h1 { margin: 0; font-size: 22px; }
+.topbar p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.tabs button { border: 1px solid #cbd5e1; background: #fff; border-radius: 999px;
+  padding: 8px 18px; font-size: 15px; cursor: pointer; margin-left: 6px; }
+.tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+#mode-demo.active, #mode-real.active { background: #0f766e; border-color: #0f766e; color: #fff; }
+.tabs-sep { display: inline-block; width: 1px; height: 22px; background: #cbd5e1; margin: 0 4px 0 10px; vertical-align: middle; }
+
+#offline-note { background: #fef3c7; color: #92400e; padding: 8px 20px; font-size: 14px; }
+#error { background: #fee2e2; color: #991b1b; border: 1px solid #f87171;
+  margin: 10px 20px 0; padding: 10px 14px; border-radius: 10px; font-size: 15px; }
+
+.steps { display: flex; gap: 12px; padding: 14px 20px 0; flex-wrap: wrap; }
+.step { flex: 1; min-width: 240px; background: var(--card); border-radius: 14px;
+  padding: 12px 14px; display: flex; gap: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.step-no { width: 32px; height: 32px; border-radius: 50%; background: var(--accent);
+  color: #fff; font-weight: bold; font-size: 18px; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0; }
+.hint { color: var(--muted); font-size: 13px; margin: 2px 0 6px; }
+select { font-size: 15px; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1; max-width: 100%; }
+.big-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.big-btns button, .row button, #bench-btns button { background: var(--accent); color: #fff;
+  border: none; border-radius: 10px; padding: 10px 14px; font-size: 15px; cursor: pointer; }
+.big-btns button.picked { background: #1e40af; outline: 3px solid #bfdbfe; }
+button:hover { filter: brightness(1.08); }
+
+main { display: flex; gap: 14px; padding: 14px 20px 20px; align-items: flex-start; }
+#map-wrap { flex: 3; min-width: 0; }
+#map { height: 62vh; min-height: 380px; border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1); background: #e8eef4; z-index: 0; }
+#side { flex: 2; min-width: 280px; display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--card); border-radius: 14px; padding: 14px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.muted { color: var(--muted); font-size: 14px; }
+#big-time { font-size: 46px; font-weight: bold; color: var(--accent); line-height: 1.1; }
+#route-list { margin: 8px 0; padding-left: 22px; font-size: 15px; }
+#route-list li { margin: 2px 0; }
+#saved-line { color: #15803d; font-weight: bold; font-size: 15px; }
+.plain { font-size: 15px; background: #eff6ff; border-radius: 8px; padding: 8px 10px; }
+.note { font-size: 13px; color: var(--muted); }
+.g { color: #16a34a; } .y { color: #ca8a04; } .r { color: #dc2626; } .b { color: var(--accent); }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 8px 0; }
+
+/* Map markers (emoji icons, no images needed) */
+.mk { font-size: 22px; text-align: center; line-height: 1; }
+.mk small { display: block; font-size: 10px; background: #fff; border-radius: 6px;
+  padding: 0 3px; white-space: nowrap; }
+.amb { font-size: 28px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 6px; }
+th, td { border: 1px solid #e5e7eb; padding: 6px; text-align: left; }
+th { background: #f1f5f9; }
+.bar-row { display: flex; align-items: center; gap: 6px; font-size: 13px; margin: 3px 0; }
+.bar-row span:first-child { width: 150px; }
+.bar { height: 14px; border-radius: 4px; }
+.bar.heap { background: #22c55e; } .bar.array { background: #ef4444; } .bar.bellman { background: #f59e0b; }
+
+#view-algo { flex-direction: column; }
+#view-algo .card { width: 100%; }
+
+@media (max-width: 760px) {
+  main { flex-direction: column; }
+  #map { height: 44vh; min-height: 300px; }
+  #side { width: 100%; }
+  #big-time { font-size: 38px; }
+  .topbar h1 { font-size: 19px; }
+}

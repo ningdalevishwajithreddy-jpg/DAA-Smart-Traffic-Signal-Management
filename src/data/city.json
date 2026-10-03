@@ -1,0 +1,473 @@
+{
+  "junctions": [
+    {
+      "id": "A",
+      "type": "normal",
+      "x": 250,
+      "y": 70,
+      "name": "Madhapur Junction",
+      "lat": 17.441,
+      "lng": 78.391
+    },
+    {
+      "id": "B",
+      "type": "normal",
+      "x": 420,
+      "y": 90,
+      "name": "Kothaguda Junction",
+      "lat": 17.449,
+      "lng": 78.36
+    },
+    {
+      "id": "C",
+      "type": "normal",
+      "x": 100,
+      "y": 220,
+      "name": "Kondapur Junction",
+      "lat": 17.458,
+      "lng": 78.361
+    },
+    {
+      "id": "D",
+      "type": "normal",
+      "x": 260,
+      "y": 210,
+      "name": "Gachibowli Junction",
+      "lat": 17.439,
+      "lng": 78.349
+    },
+    {
+      "id": "E",
+      "type": "fire_station",
+      "x": 430,
+      "y": 210,
+      "name": "Gachibowli Fire Station",
+      "lat": 17.436,
+      "lng": 78.346
+    },
+    {
+      "id": "F",
+      "type": "normal",
+      "x": 110,
+      "y": 360,
+      "name": "Hafeezpet Junction",
+      "lat": 17.472,
+      "lng": 78.365
+    },
+    {
+      "id": "FST1",
+      "type": "fire_station",
+      "x": 600,
+      "y": 80,
+      "name": "Madhapur Fire Station",
+      "lat": 17.442,
+      "lng": 78.389
+    },
+    {
+      "id": "G",
+      "type": "normal",
+      "x": 270,
+      "y": 360,
+      "name": "Nanakramguda Junction",
+      "lat": 17.422,
+      "lng": 78.368
+    },
+    {
+      "id": "H1",
+      "type": "hospital",
+      "x": 440,
+      "y": 350,
+      "name": "AIG Hospitals Gachibowli",
+      "lat": 17.4238,
+      "lng": 78.359
+    },
+    {
+      "id": "H2",
+      "type": "hospital",
+      "x": 600,
+      "y": 200,
+      "name": "Continental Hospitals",
+      "lat": 17.4166,
+      "lng": 78.3643
+    },
+    {
+      "id": "PST1",
+      "type": "police_station",
+      "x": 600,
+      "y": 360,
+      "name": "Gachibowli Police Station",
+      "lat": 17.44,
+      "lng": 78.355
+    },
+    {
+      "id": "PST2",
+      "type": "police_station",
+      "x": 270,
+      "y": 480,
+      "name": "Madhapur Police Station",
+      "lat": 17.437,
+      "lng": 78.393
+    },
+    {
+      "id": "S",
+      "type": "normal",
+      "x": 80,
+      "y": 80,
+      "name": "Cyber Towers Junction",
+      "lat": 17.4435,
+      "lng": 78.3772
+    }
+  ],
+  "roads": [
+    {
+      "blocked": false,
+      "congestion": 1.5,
+      "from": "S",
+      "length_km": 1.49,
+      "profiles": {
+        "evening": 2.2,
+        "morning": 2.0,
+        "offpeak": 1.0
+      },
+      "signal_delay": 1.0,
+      "speed_kmph": 40,
+      "to": "A"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.2,
+      "from": "S",
+      "length_km": 2.36,
+      "profiles": {
+        "evening": 1.8,
+        "morning": 1.6,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.8,
+      "speed_kmph": 40,
+      "to": "C"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.4,
+      "from": "A",
+      "length_km": 3.41,
+      "profiles": {
+        "evening": 2.0,
+        "morning": 1.9,
+        "offpeak": 1.0
+      },
+      "signal_delay": 1.0,
+      "speed_kmph": 50,
+      "to": "B"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.3,
+      "from": "A",
+      "length_km": 4.46,
+      "profiles": {
+        "evening": 1.9,
+        "morning": 1.7,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.7,
+      "speed_kmph": 40,
+      "to": "D"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.6,
+      "from": "B",
+      "length_km": 2.07,
+      "profiles": {
+        "evening": 2.4,
+        "morning": 2.1,
+        "offpeak": 1.1
+      },
+      "signal_delay": 1.2,
+      "speed_kmph": 50,
+      "to": "E"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.1,
+      "from": "B",
+      "length_km": 3.17,
+      "profiles": {
+        "evening": 1.5,
+        "morning": 1.4,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.5,
+      "speed_kmph": 60,
+      "to": "FST1"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.5,
+      "from": "C",
+      "length_km": 2.47,
+      "profiles": {
+        "evening": 2.1,
+        "morning": 2.0,
+        "offpeak": 1.0
+      },
+      "signal_delay": 1.0,
+      "speed_kmph": 40,
+      "to": "D"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.2,
+      "from": "C",
+      "length_km": 1.61,
+      "profiles": {
+        "evening": 1.7,
+        "morning": 1.5,
+        "offpeak": 1.0
+      },
+      "signal_delay": 1.5,
+      "speed_kmph": 30,
+      "to": "F"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.4,
+      "from": "D",
+      "length_km": 0.46,
+      "profiles": {
+        "evening": 2.0,
+        "morning": 1.8,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.9,
+      "speed_kmph": 40,
+      "to": "E"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.3,
+      "from": "D",
+      "length_km": 2.76,
+      "profiles": {
+        "evening": 1.8,
+        "morning": 1.7,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.8,
+      "speed_kmph": 40,
+      "to": "G"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.2,
+      "from": "E",
+      "length_km": 2.9,
+      "profiles": {
+        "evening": 1.8,
+        "morning": 1.6,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.6,
+      "speed_kmph": 50,
+      "to": "H2"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.5,
+      "from": "E",
+      "length_km": 2.81,
+      "profiles": {
+        "evening": 2.2,
+        "morning": 2.0,
+        "offpeak": 1.0
+      },
+      "signal_delay": 1.1,
+      "speed_kmph": 40,
+      "to": "G"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.4,
+      "from": "F",
+      "length_km": 5.57,
+      "profiles": {
+        "evening": 2.0,
+        "morning": 1.8,
+        "offpeak": 1.0
+      },
+      "signal_delay": 1.2,
+      "speed_kmph": 30,
+      "to": "G"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.1,
+      "from": "F",
+      "length_km": 4.9,
+      "profiles": {
+        "evening": 1.4,
+        "morning": 1.3,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.6,
+      "speed_kmph": 30,
+      "to": "PST2"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.3,
+      "from": "G",
+      "length_km": 0.98,
+      "profiles": {
+        "evening": 1.9,
+        "morning": 1.7,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.9,
+      "speed_kmph": 40,
+      "to": "H1"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.2,
+      "from": "G",
+      "length_km": 3.13,
+      "profiles": {
+        "evening": 1.5,
+        "morning": 1.4,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.7,
+      "speed_kmph": 30,
+      "to": "PST2"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.2,
+      "from": "H1",
+      "length_km": 1.85,
+      "profiles": {
+        "evening": 1.7,
+        "morning": 1.5,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.8,
+      "speed_kmph": 40,
+      "to": "PST1"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.3,
+      "from": "H1",
+      "length_km": 0.98,
+      "profiles": {
+        "evening": 1.8,
+        "morning": 1.6,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.5,
+      "speed_kmph": 50,
+      "to": "H2"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.1,
+      "from": "H2",
+      "length_km": 3.85,
+      "profiles": {
+        "evening": 1.4,
+        "morning": 1.3,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.4,
+      "speed_kmph": 50,
+      "to": "FST1"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.7,
+      "from": "E",
+      "length_km": 1.93,
+      "profiles": {
+        "evening": 2.5,
+        "morning": 2.2,
+        "offpeak": 1.1
+      },
+      "signal_delay": 1.0,
+      "speed_kmph": 40,
+      "to": "H1"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.2,
+      "from": "FST1",
+      "length_km": 3.61,
+      "profiles": {
+        "evening": 1.6,
+        "morning": 1.5,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.5,
+      "speed_kmph": 60,
+      "to": "PST1"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.6,
+      "from": "B",
+      "length_km": 1.61,
+      "profiles": {
+        "evening": 2.3,
+        "morning": 2.0,
+        "offpeak": 1.0
+      },
+      "signal_delay": 1.0,
+      "speed_kmph": 40,
+      "to": "D"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.3,
+      "from": "C",
+      "length_km": 4.07,
+      "profiles": {
+        "evening": 1.8,
+        "morning": 1.6,
+        "offpeak": 1.0
+      },
+      "signal_delay": 1.1,
+      "speed_kmph": 30,
+      "to": "G"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.2,
+      "from": "F",
+      "length_km": 5.4,
+      "profiles": {
+        "evening": 1.6,
+        "morning": 1.5,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.9,
+      "speed_kmph": 40,
+      "to": "H1"
+    },
+    {
+      "blocked": false,
+      "congestion": 1.4,
+      "from": "A",
+      "length_km": 3.7,
+      "profiles": {
+        "evening": 2.0,
+        "morning": 1.8,
+        "offpeak": 1.0
+      },
+      "signal_delay": 0.8,
+      "speed_kmph": 40,
+      "to": "C"
+    }
+  ]
+}

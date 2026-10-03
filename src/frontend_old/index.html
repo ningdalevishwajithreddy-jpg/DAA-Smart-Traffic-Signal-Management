@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Smart Traffic Signal Management</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Smart Traffic Signal Management</h1>
+  <p>Click a junction to set the ambulance source. Click a road to change traffic.</p>
+</header>
+
+<div id="error" class="hidden"></div>
+
+<main>
+  <!-- LEFT: city map -->
+  <section id="map-panel">
+    <svg id="map" viewBox="0 0 700 560" role="img" aria-label="City map"></svg>
+    <div id="legend">
+      <span><i class="dot normal"></i>Normal</span>
+      <span><i class="dot hospital"></i>Hospital</span>
+      <span><i class="dot fire"></i>Fire station</span>
+      <span><i class="dot police"></i>Police station</span>
+      <span><i class="line free"></i>Free road</span>
+      <span><i class="line jam"></i>Jammed road</span>
+      <span><i class="line blocked"></i>Blocked</span>
+      <span><i class="line route"></i>Fastest route</span>
+    </div>
+  </section>
+
+  <!-- RIGHT: controls -->
+  <aside id="panel">
+    <h2>Source: <span id="source-name">S</span></h2>
+
+    <label>Time profile
+      <select id="profile">
+        <option value="">current</option>
+        <option value="morning">morning</option>
+        <option value="evening">evening</option>
+        <option value="offpeak">offpeak</option>
+      </select>
+    </label>
+
+    <label class="row">
+      <input type="checkbox" id="green" checked> Green corridor (time saved)
+    </label>
+
+    <label>Show only
+      <select id="typefilter">
+        <option value="">all junctions</option>
+        <option value="hospital">hospital</option>
+        <option value="fire_station">fire station</option>
+        <option value="police_station">police station</option>
+      </select>
+    </label>
+
+    <h3>Selected road: <span id="road-name">none</span></h3>
+    <label>Congestion <span id="cong-val">1.5</span>
+      <input type="range" id="congestion" min="1" max="4" step="0.1" value="1.5">
+    </label>
+    <div class="row">
+      <button id="apply-cong">Apply congestion</button>
+      <button id="block-btn">Block road</button>
+    </div>
+
+    <h3>Animation</h3>
+    <div class="row">
+      <button id="play">Play steps</button>
+      <label>Speed <input type="range" id="speed" min="100" max="1500" step="100" value="600"></label>
+    </div>
+
+    <h3>Results</h3>
+    <table id="results">
+      <thead><tr>
+        <th>Junction</th><th>Type</th><th>Normal</th><th>Green</th><th>Saved</th><th>Path</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h3>Benchmark (this computer)</h3>
+    <div class="row" id="bench-btns">
+      <button data-n="100">n=100</button>
+      <button data-n="500">n=500</button>
+      <button data-n="1000">n=1000</button>
+      <button data-n="2000">n=2000</button>
+    </div>
+    <table id="bench-table">
+      <thead><tr><th>n</th><th>Heap</th><th>Array</th><th>Bellman</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div id="bench-bars"></div>
+    <p class="note">Timings are measured on this computer.</p>
+    <p class="note"><a href="benchmark.html">Open full benchmark chart</a></p>
+  </aside>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

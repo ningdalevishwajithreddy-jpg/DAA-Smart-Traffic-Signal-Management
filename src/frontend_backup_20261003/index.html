@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Traffic — Emergency Route Finder</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>🚑 Emergency Route Finder</h1>
+    <p>Fastest ambulance routes in Hyderabad (Madhapur – Gachibowli). Traffic is simulated in this demo.</p>
+  </div>
+  <nav class="tabs">
+    <button id="mode-demo" class="active">Demo city</button>
+    <button id="mode-real">Real city</button>
+    <span class="tabs-sep"></span>
+    <button id="tab-main" class="active">Main</button>
+    <button id="tab-algo">Algorithm view</button>
+  </nav>
+</header>
+
+<div id="offline-note" class="hidden">⚠️ Offline mode: map tiles unavailable, showing simplified map.</div>
+<div id="error" class="hidden"></div>
+
+<!-- 3 steps, always visible -->
+<section class="steps">
+  <div class="step">
+    <div class="step-no">1</div>
+    <div>
+      <strong>Where is the ambulance?</strong>
+      <div class="hint">Click a place on the map, or choose below.</div>
+      <select id="source-select"></select>
+      <div id="src-real-hint" class="hint hidden">Click anywhere on the map — we snap to the nearest road.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-no">2</div>
+    <div>
+      <strong>Where does it need to go?</strong>
+      <div class="hint">Tap a big button, or pick any place.</div>
+      <div class="big-btns">
+        <button data-type="hospital">🏥 Nearest hospital</button>
+        <button data-type="fire_station">🚒 Nearest fire station</button>
+        <button data-type="police_station">🚓 Nearest police station</button>
+      </div>
+      <select id="dest-select"><option value="">Any place…</option></select>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-no">3</div>
+    <div>
+      <strong>Fastest route</strong>
+      <div class="hint">See the blue route and arrival time on the card.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN VIEW -->
+<main id="view-main">
+  <div id="map-wrap"><div id="map"></div></div>
+  <aside id="side">
+    <div class="card" id="result-card">
+      <div class="muted">Arrival time</div>
+      <div id="big-time">–</div>
+      <div id="result-to" class="muted">Choose a starting place.</div>
+      <div id="snap-info" class="muted"></div>
+      <ol id="route-list"></ol>
+      <div id="saved-line"></div>
+      <div id="fly-line" class="muted"></div>
+      <p id="compare-line" class="plain"></p>
+    </div>
+
+    <div class="card">
+      <strong>Traffic time</strong>
+      <div class="hint">Pick the time of day.</div>
+      <select id="profile">
+        <option value="offpeak">Normal</option>
+        <option value="morning">Morning rush</option>
+        <option value="evening">Evening rush</option>
+      </select>
+      <p class="note">Road colors: <b class="g">green</b> clear,
+        <b class="y">yellow</b> busy, <b class="r">red</b> jam,
+        grey dashed = closed. Click a road to change it.</p>
+    </div>
+
+    <div class="card legend">
+      <strong>Legend</strong>
+      <div>🔵 ordinary place &nbsp; 🏥 hospital &nbsp; 🚒 fire station &nbsp; 🚓 police station</div>
+      <div>🟩 clear &nbsp; 🟨 busy &nbsp; 🟥 jam &nbsp; ➖ closed &nbsp; <b class="b">━ fastest route</b></div>
+    </div>
+  </aside>
+</main>
+
+<!-- ALGORITHM VIEW -->
+<main id="view-algo" class="hidden">
+  <div class="card">
+    <strong>Step-by-step (how the algorithm thinks)</strong>
+    <div class="hint">Each flash is one place whose fastest time becomes final, quickest first.</div>
+    <div class="row">
+      <button id="play">▶ Play steps</button>
+      <label>Speed <input type="range" id="speed" min="100" max="1400" step="100" value="700"></label>
+      <span id="step-status" class="muted"></span>
+    </div>
+  </div>
+  <div class="card">
+    <strong>Benchmark (measured on this computer)</strong>
+    <div class="row" id="bench-btns">
+      <button data-n="100">n=100</button>
+      <button data-n="500">n=500</button>
+      <button data-n="1000">n=1000</button>
+      <button data-n="2000">n=2000</button>
+    </div>
+    <table id="bench-table">
+      <thead><tr><th>Junctions</th><th>Heap (main)</th><th>Array (naive)</th><th>Bellman-Ford</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div id="bench-bars"></div>
+    <p class="note">Timings are measured on this computer. Heap grows slowly: O((V+E) log V).
+      The naive array scan grows fast: O(V²).</p>
+  </div>
+  <div class="card">
+    <strong>Complexity notes</strong>
+    <p class="note">Heap Dijkstra: time O((V+E) log V), space O(V+E) — the heap always hands over the smallest time. Array version: O(V²) — it scans every place each round. Bellman-Ford: O(V·E) — it rechecks every road many times; used only to double-check answers in tests.</p>
+  </div>
+  <div class="card" id="real-algo-card">
+    <strong>Real city (Jagadgirigutta)</strong>
+    <div class="hint">Live counts from the downloaded OpenStreetMap graph.</div>
+    <div id="real-counts" class="muted">Real city data not loaded.</div>
+    <div class="row"><button id="real-bench">Run real benchmark</button></div>
+    <table id="real-bench-table">
+      <thead><tr><th>Nodes</th><th>Edges</th><th>Heap</th><th>Array</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p class="note">Bellman-Ford skipped here: V·E on a real city is too slow.
+      Array runs on a labeled 2000-node connected sample; array on all 66k
+      junctions would take many minutes (measured separately for the docs).</p>
+  </div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
